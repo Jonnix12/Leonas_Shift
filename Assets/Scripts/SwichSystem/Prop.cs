@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Prop : MonoBehaviour
 {
+    public UnityEvent OnLight;
+    
+    public UnityEvent OnDark;
+    
+    public UnityEvent OnSwitch;
+    
     [SerializeField] GameObject visual;
 
     [SerializeField] bool isDefaultLight;
@@ -48,6 +55,8 @@ public class Prop : MonoBehaviour
 
     void Switch()
     {
+        OnSwitch?.Invoke();
+        
         if (isDeactive)
         {
             if (SwitchManager.isLight == true)
@@ -79,10 +88,12 @@ public class Prop : MonoBehaviour
         {
             if (SwitchManager.isLight == false)
             {
+                OnDark?.Invoke();
                 spriteRend.sprite = darkSprite;
             }
             else if (SwitchManager.isLight == true)
             {
+                OnLight?.Invoke();
                 spriteRend.sprite = lightSprite;
             }
         }

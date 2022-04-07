@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,18 +10,19 @@ public class MoveingPlatform : MonoBehaviour
     [SerializeField] float disToTarget = 0.5f;
     [SerializeField] bool isPlayerActive;
 
-    Vector2 startPos;
-    Vector2 moveTarget;
+    private GameObject _player;
 
-    bool playerOn = false;
+    private Vector2 _startPos;
+    private Vector2 _moveTarget;
+    private Vector2 _offset;
 
-
-    string playerTag = "Player";
-
+    private bool _playerOn = false;
+    
     void Start()
     {
-        startPos = transform.position;
-        moveTarget = moveTo;
+        _startPos = transform.position;
+        _moveTarget = moveTo;
+        _player = null;
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class MoveingPlatform : MonoBehaviour
     {
         if (isPlayerActive)
         {
-            if (playerOn)
+            if (_playerOn)
             {
                 Move();
             }
@@ -44,29 +46,10 @@ public class MoveingPlatform : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Contains(playerTag))
-        {
-            collision.gameObject.transform.parent = transform;
-            playerOn = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Contains(playerTag))
-        {
-            collision.gameObject.transform.parent = null;
-            playerOn = false;
-        }
-    }
-
     void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveTarget, speed * Time.fixedDeltaTime);
-
-        if (Vector2.Distance(transform.position, moveTarget) < disToTarget)
+        transform.position = Vector2.MoveTowards(transform.position, _moveTarget, speed * Time.fixedDeltaTime);
+        if (Vector2.Distance(transform.position, _moveTarget) < disToTarget)
         {
             ChangeDirection();
         }
@@ -74,24 +57,24 @@ public class MoveingPlatform : MonoBehaviour
 
     void ChangeDirection()
     {
-        if (moveTarget == moveTo)
+        if (_moveTarget == moveTo)
         {
-            moveTarget = startPos;
+            _moveTarget = _startPos;
         }
-        else if (moveTarget == startPos)
+        else if (_moveTarget == _startPos)
         {
-            moveTarget = moveTo;
+            _moveTarget = moveTo;
         }
     }
 
     void ReturnToStartPos()
     {
-        moveTarget = startPos;
-        transform.position = Vector2.MoveTowards(transform.position, moveTarget, speed * Time.fixedDeltaTime);
+        _moveTarget = _startPos;
+        transform.position = Vector2.MoveTowards(transform.position, _moveTarget, speed * Time.fixedDeltaTime);
 
-        if (Vector2.Distance(transform.position, startPos) < disToTarget)
+        if (Vector2.Distance(transform.position, _startPos) < disToTarget)
         {
-            moveTarget = moveTo;
+            _moveTarget = moveTo;
             return;
         }
     }
@@ -100,5 +83,17 @@ public class MoveingPlatform : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(moveTo, 0.3f);
+    }
+
+    public void SetParant(Transform obj, bool chack)
+    {
+        if (chack)
+        {
+            obj.parent = transform;
+        }
+        else
+        {
+            obj.parent = null;
+        }
     }
 }
