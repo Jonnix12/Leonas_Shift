@@ -16,7 +16,7 @@ public class MoveingPlatform : MonoBehaviour
     private Vector2 _moveTarget;
     private Vector2 _offset;
 
-    private bool _playerOn = false;
+    public bool _playerOn = false;
     
     void Start()
     {

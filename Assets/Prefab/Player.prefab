@@ -249,8 +249,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
+  shadow: {fileID: 0}
   speed: 10
   jumpMuliteplayer: 25
   canMove: 1
   faceingRight: 1
+  inDialogue: 0

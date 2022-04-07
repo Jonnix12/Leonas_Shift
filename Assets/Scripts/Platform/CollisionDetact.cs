@@ -11,11 +11,13 @@ namespace Platform
         private void OnCollisionEnter2D(Collision2D col)
         {
             platform.SetParant(col.transform,true);
+            platform._playerOn = true;
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             platform.SetParant(other.transform,false);
+            platform._playerOn = false;
         }
     }
 }
