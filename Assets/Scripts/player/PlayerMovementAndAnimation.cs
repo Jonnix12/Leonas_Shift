@@ -21,6 +21,8 @@ public class PlayerMovementAndAnimation : MonoBehaviour
 
     public bool faceingRight = true;
 
+    public bool inDialogue = false;
+
     Rigidbody2D rb;
 
     BoxCollider2D Collider;
@@ -32,6 +34,7 @@ public class PlayerMovementAndAnimation : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Collider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        DialogueManager.DialogueEvent += ChanageDialogueStats;
     }
 
     private bool IsGrounded()//Check if the player is grounded
@@ -96,9 +99,24 @@ public class PlayerMovementAndAnimation : MonoBehaviour
         }
     }
 
+    private void ChanageDialogueStats()
+    {
+        if (inDialogue == false)
+        {
+            inDialogue = true;
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            inDialogue = false;
+        }
+    }
+
     private void Update()
     {
         AnimationUpdate();
-        Movement();    
+
+        if (!inDialogue)
+            Movement();
     }
 }

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour {
+	
+	public static event Action DialogueEvent;
 
 	[SerializeField] TextMeshProUGUI dialogueText;
 
@@ -24,6 +27,7 @@ public class DialogueManager : MonoBehaviour {
 		//Starts the dialogue and takes the new sentences and compares
        //it to a queue of present sentences
 	{
+		DialogueEvent?.Invoke();
 		animator.SetBool("IsOpen", true);
 
 		sentences.Clear();
@@ -64,6 +68,7 @@ public class DialogueManager : MonoBehaviour {
 
 	void EndDialogue()
 	{
+		DialogueEvent?.Invoke();
 		animator.SetBool("IsOpen", false);
 	}
 
