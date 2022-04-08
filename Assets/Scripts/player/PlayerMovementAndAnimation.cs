@@ -73,7 +73,7 @@ public class PlayerMovementAndAnimation : MonoBehaviour
         }
 
 
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontal * speed * Time.deltaTime, rb.velocity.y);
     }
 
     private void AnimationUpdate()
@@ -101,15 +101,8 @@ public class PlayerMovementAndAnimation : MonoBehaviour
 
     private void ChanageDialogueStats()
     {
-        if (inDialogue == false)
-        {
-            inDialogue = true;
-            rb.velocity = Vector2.zero;
-        }
-        else
-        {
-            inDialogue = false;
-        }
+        inDialogue = !inDialogue;
+        rb.velocity = Vector2.zero;
     }
 
     private void Update()

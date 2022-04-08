@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193924013}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.049999714, y: 0.03999996, z: 0.77734303}
+  m_LocalPosition: {x: 0.049999714, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8552698403695842306}
@@ -250,7 +250,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 192
-  shadow: {fileID: 0}
+  shadow: {fileID: 1193924013}
   speed: 10
   jumpMuliteplayer: 25
   canMove: 1
